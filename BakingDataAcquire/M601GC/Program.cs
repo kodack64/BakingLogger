@@ -13,7 +13,21 @@ namespace M601GC {
 		const int intervalMs = 5000;
 		const int dataBlock = 100;
 		char[] delim = { ',' };
+		int blockCount = 0;
 		public void Run() {
+
+			// retrieve last final datablock
+			DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+			var files = di.GetFiles("tc08_*.txt", SearchOption.TopDirectoryOnly);
+			char[] delim = { '.', '_' };
+			foreach (var file in files) {
+				var fileind = Int32.Parse(file.Name.Split(delim)[1]);
+				blockCount = Math.Max(fileind + 1, blockCount);
+			}
+			if (blockCount > 0) {
+				Console.WriteLine("Continue logging from block index {0]", blockCount);
+			}
+
 			SerialPort port = new SerialPort(comName,9600,Parity.None,8,StopBits.One);
 			port.NewLine = "\r";
 			port.Open();
@@ -22,7 +36,6 @@ namespace M601GC {
 				return;
 			}
 			int dataCount=0;
-			int blockCount = 0;
 			double[] data = new double[dataBlock];
 			do {
 				try {

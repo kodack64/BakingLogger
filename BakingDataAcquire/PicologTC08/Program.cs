@@ -43,10 +43,10 @@ namespace BakingLogger {
 			myHandlerDele = new HandlerRoutine(myHandler);
 			SetConsoleCtrlHandler(myHandlerDele, true);
 
+			// retrieve last final datablock
 			DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
 			var files = di.GetFiles("tc08_*.txt", SearchOption.TopDirectoryOnly);
 			char[] delim = {'.','_'};
-
 			foreach (var file in files) {
 				var fileind = Int32.Parse(file.Name.Split(delim)[1]);
 				blockCount = Math.Max(fileind+1, blockCount);

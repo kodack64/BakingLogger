@@ -12,10 +12,23 @@ namespace HH309 {
 		const string comName = "COM5";
 		const int intervalMs = 5000;
 		static int dataBlock = 100;
+		int blockCount = 0;
 		void Run() {
+
+			// retrieve last final datablock
+			DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+			var files = di.GetFiles("tc08_*.txt", SearchOption.TopDirectoryOnly);
+			char[] delim = { '.', '_' };
+			foreach (var file in files) {
+				var fileind = Int32.Parse(file.Name.Split(delim)[1]);
+				blockCount = Math.Max(fileind + 1, blockCount);
+			}
+			if (blockCount > 0) {
+				Console.WriteLine("Continue logging from block index {0]", blockCount);
+			}
+
 			HH309Communicate port = new HH309Communicate(comName);
 			int dataCount = 0;
-			int blockCount = 0;
 			float[,] data = new float[4, dataBlock];
 			if (port.isOpen) {
 				do {

@@ -9,7 +9,7 @@ using System.IO;
 
 namespace HH309 {
 	class HH309Logger {
-		const string comName = "COM3";
+		const string comName = "COM5";
 		const int intervalMs = 5000;
 		static int dataBlock = 100;
 		void Run() {

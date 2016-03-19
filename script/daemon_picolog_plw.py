@@ -7,6 +7,8 @@ import numpy as np
 import time
 import shutil
 
+getDirectory = "";
+sendDirectory = "";
 
 def readData(fin,count,format):
 	return unpack(format,fin.read(count))[0]
@@ -113,7 +115,7 @@ def plot():
 	print("plot and save")
 
 def getfile():
-	flist = glob.glob("C:\\Users\\Yasunari\\Google ドライブ\\実験\\bake_monitor\\*.PLW")
+	flist = glob.glob(getDirectory)
 	for file in flist:
 		shutil.copy(file,"./")
 	print("get {0} files".format(len(flist)))
@@ -121,7 +123,7 @@ def getfile():
 def exportfile():
 	flist = glob.glob("*.png")
 	for file in flist:
-		shutil.copy(file,"C:\\Users\\Yasunari\\Google ドライブ\\実験\\bake_monitor")
+		shutil.copy(file,sendDirectory)
 	print("send {0} images".format(len(flist)))
 
 

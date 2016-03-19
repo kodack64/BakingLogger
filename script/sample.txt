@@ -1,0 +1,24 @@
+
+# data array
+channel = 2
+ch1 = hogehoge
+ch2 = piyopiyo
+
+# data prefix, data must be "<prefix>_<datablock>.txt"
+prefix = prefix_of_data
+
+# update interval in sec
+updateInterval = 1500
+
+# path
+path = C:/
+
+
+# data acq interval in sec
+dataInterval = 5
+
+# ylabel name in graph
+ylabel = temperature (C)
+
+# if use logscale in graph , set logscale = 1
+logscale = 0

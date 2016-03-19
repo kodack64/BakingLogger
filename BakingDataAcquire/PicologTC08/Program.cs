@@ -38,9 +38,22 @@ namespace BakingLogger {
 		static int intervalAcquireMs = 1000*5;
 		static int dataBlock = 100;
 		short handle=0;
+		int blockCount = 0;
 		unsafe void Run() {
 			myHandlerDele = new HandlerRoutine(myHandler);
 			SetConsoleCtrlHandler(myHandlerDele, true);
+
+			DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+			var files = di.GetFiles("tc08_*.txt", SearchOption.TopDirectoryOnly);
+			char[] delim = {'.','_'};
+
+			foreach (var file in files) {
+				var fileind = Int32.Parse(file.Name.Split(delim)[1]);
+				blockCount = Math.Max(fileind+1, blockCount);
+			}
+			if (blockCount > 0) {
+				Console.WriteLine("Continue logging from block index {0]", blockCount);
+			}
 
 			// get handle
 			handle = Imports.TC08OpenUnit();
@@ -62,7 +75,6 @@ namespace BakingLogger {
 			}
 
 			float[,] data = new float[USBTC08_MAX_CHANNELS+1,dataBlock];
-			int blockCount = 0;
 			int dataCount = 0;
 			if (!isStreaming) {
 				// loop single acquire until key hit

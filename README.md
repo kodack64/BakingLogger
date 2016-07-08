@@ -1,8 +1,6 @@
 # BakingLogger
-Data acquisition, processing and analysis for Baking monitoring
+ベーキング関連の道具のモニタリング用のスクリプトです。
+Omega HH309、Pico Data Logger TC-08、M-601GCからデータを取得し、定期的に共有フォルダにアップロードします。
 
-
-./BakingDataAcquire : C# program for communication and data storing of Omega HH309, Pico Data Logger TC-08 and M-601GC
-
-
-./script : python script for analyzing recently stored data, making graph and sending graph to shared folder like dropbox for every some minutes
+./BakingDataAcquire : C#で書いた取得プログラム
+./script : pythonで書いたログのモニタリング
